@@ -1,0 +1,71 @@
+﻿@model IEnumerable<HikerPals.Models.Hiker>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrailName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AverageDailyMiles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearsExperience)
+            </th>
+          @*  <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Trail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pack)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrailName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AverageDailyMiles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearsExperience)
+            </td>
+           @* <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Trail.TName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pack.PackName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

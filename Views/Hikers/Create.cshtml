@@ -1,0 +1,63 @@
+﻿@model HikerPals.Models.Hiker
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Hiker</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TrailName" class="control-label"></label>
+                <input asp-for="TrailName" class="form-control" />
+                <span asp-validation-for="TrailName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AverageDailyMiles" class="control-label"></label>
+                <input asp-for="AverageDailyMiles" class="form-control" />
+                <span asp-validation-for="AverageDailyMiles" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YearsExperience" class="control-label"></label>
+                <input asp-for="YearsExperience" class="form-control" />
+                <span asp-validation-for="YearsExperience" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p>Add a trial in the 'Trails' tab if you don't see a trail you've hiked on this list</p>
+                <label asp-for="TrailId" class="control-label"></label>
+                <select asp-for="TrailId" class ="form-control" asp-items="ViewBag.TrailId"></select>
+            </div>
+            <div class="form-group">
+                <p>Add your pack to the 'Packs' tab if you don't see your pack on the list.'</p>
+                <label asp-for="PackId" class="control-label"></label>
+                <select asp-for="PackId" class ="form-control" asp-items="ViewBag.PackId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

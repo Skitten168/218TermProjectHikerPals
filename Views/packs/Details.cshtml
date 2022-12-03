@@ -1,0 +1,30 @@
+﻿@model HikerPals.Models.pack
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>pack</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PackName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PackName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PackVolume)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PackVolume)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PackId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
