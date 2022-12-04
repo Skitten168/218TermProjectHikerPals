@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+
+
 using HikerPals.Models;
 
 namespace HikerPals.Controllers
@@ -19,12 +21,66 @@ namespace HikerPals.Controllers
         }
 
         // GET: Hikers
-        public async Task<IActionResult> Index()
+        /*      public async Task<IActionResult> Index()
+              {
+                  var hikerContext = _context.Hikers.Include(h => h.Trail).Include(h => h.pack);
+                  return View(await hikerContext.ToListAsync());
+              }*/
+
+       
+        
+        
+       public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            var hikerContext = _context.Hikers.Include(h => h.Trail).Include(h => h.pack);
-            return View(await hikerContext.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["AgeSortParam"] = sortOrder == "Age" ? "age_desc" : "Age";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var hikers = from s in _context.Hikers.Include(s => s.Trail).Include(s => s.pack)
+                         select s;
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                hikers = hikers.Where(s => s.TrailName.Contains(searchString));
+            }
+            
+                        
+                        switch (sortOrder)
+            {
+                case "name_desc":
+                    hikers = hikers.OrderByDescending(s => s.TrailName);
+                    break;
+                case "Age":
+                    hikers = hikers.OrderBy(s => s.Age);
+                    break;
+                case "age_desc":
+                    hikers = hikers.OrderByDescending(s => s.Age);
+                    break;
+                default:
+                    hikers = hikers.OrderBy(s => s.TrailName);
+                    break;
+
+            }
+            int pageSize = 3;
+            return View(await PaginatedList<Hiker>.CreateAsync(hikers.AsNoTracking(),pageNumber ?? 1, pageSize));
         }
 
+
+        
+        
+        
         // GET: Hikers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
