@@ -1,5 +1,6 @@
 ﻿
 ﻿body {
+    background-image: url(../images/pexels-photo-2398220.jpeg)
 }
 
 h1 {
@@ -13,11 +14,21 @@ form {
 }
 
 table {
+    color: antiquewhite;
     border: groove;
-    border-width: 3px;
+    border-width: 5px;
     border-color: darkgoldenrod;
+    background-color: #133926;
 }
+
 
 a {
     color: goldenrod;
+}
+
+    a:hover {
+        color: orange;
+    }
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: antiquewhite;
 }

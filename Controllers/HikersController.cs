@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 
 using HikerPals.Models;
 
 namespace HikerPals.Controllers
 {
+   /* [Authorize]*/
     public class HikersController : Controller
     {
         private readonly HikerContext _context;
@@ -102,6 +104,7 @@ namespace HikerPals.Controllers
         }
 
         // GET: Hikers/Create
+        //[Authorize]
         public IActionResult Create()
         {
             ViewData["TrailId"] = new SelectList(_context.Trails, "TrailId", "TName");
@@ -183,6 +186,7 @@ namespace HikerPals.Controllers
         }
 
         // GET: Hikers/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
